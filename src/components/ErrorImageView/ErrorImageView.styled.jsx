@@ -1,19 +1,19 @@
 import styled from '@emotion/styled';
 
 export const ErrorBox = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-    margin: 5px;
-    margin-bottom: 10px;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  margin: 5px;
+  margin-bottom: 10px;
+  gap: 10px;
 `;
 
 export const Message = styled.p`
   max-width: 80%;
-//   color: accent;
+  color: #eeea9e;
   text-shadow: '0 1px 1px #fff';
 
   text-align: center;

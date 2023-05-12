@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import { Container } from './App.styled';
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
 
 export default class App extends Component {
   state = {
     value: '',
-
   }
 
   handleSearchFormSubmit = searchFormValue => {
@@ -18,21 +18,21 @@ export default class App extends Component {
 
   render() {
     return (
-      <div
-        style={{
-          // height: '100vh',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          fontSize: 40,
-          // color: '#010101'
-        }}
+      <Container
+        // style={{
+        //   height: '100vh',
+        //   display: 'flex',
+        //   justifyContent: 'center',
+        //   alignItems: 'center',
+        //   fontSize: 40,
+        //   color: '#010101'
+        // }}
       >
       <Searchbar onSearchFormSubmit={this.handleSearchFormSubmit}/>
       <ImageGallery imageSearchName={this.state.value} /> 
 
       <ToastContainer position="top-center" autoClose={3000}/>
-      </div>
+      </Container>
     );
   }
 };

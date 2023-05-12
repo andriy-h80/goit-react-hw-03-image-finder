@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import ErrorImageView from '../ErrorImageView/ErrorImageView';
+import Loader from '../Loader/Loader';
+// import ImageGallery from './ImageGallery.styled';
 import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
 // import { toast } from 'react-toastify';
 // import PropTypes from 'prop-types';
@@ -41,24 +43,27 @@ export default class ImageGallery extends Component {
         }
       
         if (status === 'pending') {
-            return <div>Downloading...</div>;
+            return <Loader />;
         }
 
         if (status === 'rejected') {
             return <ErrorImageView message={error.message} />;
         }
 
-        if (status === 'resolved') {
-            return <ImageGalleryItem /> 
+        // if (status === 'resolved') {
+        //     return <ImageGalleryItem /> 
+        // }
 
-        //     <div>
-        //     <p>{imageSearchName}</p>
-        //     <img
-        //      src={searchName.hits[0].previewURL}
-        //      alt={imageSearchName}
-        //      width="300"
-        //     />
-        // </div>;
-        }
+        return (
+            <div>
+            <p>{imageSearchName}</p>
+            <img
+             src={searchName.hits[0].previewURL}
+             alt={imageSearchName}
+             width="300"
+            />
+            </div>
+            )
     }
   };
+  
