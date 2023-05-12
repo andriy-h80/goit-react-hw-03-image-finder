@@ -1,47 +1,64 @@
 import React, { Component } from 'react';
+import ErrorImageView from '../ErrorImageView/ErrorImageView';
+import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
 // import { toast } from 'react-toastify';
 // import PropTypes from 'prop-types';
+
 
 export default class ImageGallery extends Component {
     state = {
         searchName: null,
-        loading: false,
+        // loading: false,
         error: null,
+        status: 'idle'
     }
     
     componentDidUpdate(prevProps, prevState) {
 
         if (prevProps.imageSearchName !== this.props.imageSearchName) {
 
-            this.setState({ loading: true });
+            this.setState({ status: 'pending' });
             fetch(`https://pixabay.com/api/?q=${this.props.imageSearchName}&page=1&key=34772509-2b3ff3d3039847d74197d09be&image_type=photo&orientation=horizontal&per_page=12`)
-            .then(response => response.json())
-            .then(searchName => this.setState({ searchName }))
-            .catch(error => this.setState({ error }))
-            .finally(this.setState({ loading: false }));
+            .then(response => {
+                if (response.ok) {
+                    return response.json()
+                }
+                return Promise.reject(
+                    new Error(`Sorry, {imageSearchName} does not exist `)
+                )
+            })
+            .then(searchName => this.setState({ searchName, status: 'resolved' }))
+            .catch(error => this.setState({ error, status: 'rejected' }));
         }
     }
 
     render() {
-        const { searchName, loading, error } = this.state;
+        const { searchName, error, status } = this.state;
         const { imageSearchName } = this.props;
+
+        if (status === 'idle') {
+            return <div>Введіть ключове слово для пошуку</div>;
+        }
       
-        return (
-        <div>
-            <h3>ImageGallery</h3>
-            {error && <h4>Sorry, {imageSearchName} does not exist</h4>}
-            {loading && <div>Downloading...</div>}
-            {!imageSearchName && <div>Введіть ключове слово для пошуку</div>}
-            {searchName && (
-            <div>
-                <p>{imageSearchName}</p>
-                <img
-                 src={searchName.hits[0].previewURL}
-                 alt={imageSearchName}
-                 width="300"
-                />
-            </div>)}
-        </div>
-      );
+        if (status === 'pending') {
+            return <div>Downloading...</div>;
+        }
+
+        if (status === 'rejected') {
+            return <ErrorImageView message={error.message} />;
+        }
+
+        if (status === 'resolved') {
+            return <ImageGalleryItem /> 
+
+        //     <div>
+        //     <p>{imageSearchName}</p>
+        //     <img
+        //      src={searchName.hits[0].previewURL}
+        //      alt={imageSearchName}
+        //      width="300"
+        //     />
+        // </div>;
+        }
     }
   };
