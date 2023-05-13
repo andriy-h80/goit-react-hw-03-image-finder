@@ -4,8 +4,6 @@ import { ImSearch } from 'react-icons/im';
 import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 
-const styles = { form: { matginBottom: 20 } };
-
 export default class Searchbar extends Component {
     state = {
         value: '',
@@ -26,13 +24,12 @@ export default class Searchbar extends Component {
         this.setState({ value: '' });
     }
 
-
     render() {
       return (
         <Header>
-            <SearchForm onSubmit={this.handleSubmit} style={styles.form}>
+            <SearchForm onSubmit={this.handleSubmit}>
                 <SearchFormBtn type='submit'>
-                    <ImSearch style={{ marginRight: 8 }} />
+                    <ImSearch size={20}/>
                     <SearchFormLabel>Search</SearchFormLabel>
                 </SearchFormBtn>
                 <SearchFormInput

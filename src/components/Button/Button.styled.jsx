@@ -10,6 +10,7 @@ const LoadMoreBtn = styled.button`
     margin: auto;
     color: #fff;
     border: 0;
+    border-radius: 8px;
     text-decoration: none;
     cursor: pointer;
     font-family: inherit;

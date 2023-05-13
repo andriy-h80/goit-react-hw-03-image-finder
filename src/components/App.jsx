@@ -16,24 +16,11 @@ export default class App extends Component {
 
   render() {
     return (
-      <Container
-        // style={{
-        //   height: '100vh',
-        //   display: 'flex',
-        //   justifyContent: 'center',
-        //   alignItems: 'center',
-        //   fontSize: 40,
-        //   color: '#010101'
-        // }}
-      >
+      <Container>
       <Searchbar onSearchFormSubmit={this.handleSearchFormSubmit}/>
       <ImageGallery imageSearchName={this.state.value} /> 
-
       <ToastContainer position="top-center" autoClose={3000}/>
       </Container>
     );
   }
 };
-
-
-// 34772509-2b3ff3d3039847d74197d09be
