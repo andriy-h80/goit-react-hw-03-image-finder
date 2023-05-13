@@ -12,9 +12,7 @@ export default class App extends Component {
 
   handleSearchFormSubmit = searchFormValue => {
     this.setState({ value: searchFormValue });
-    // console.log(searchFormValue);
   }
-
 
   render() {
     return (

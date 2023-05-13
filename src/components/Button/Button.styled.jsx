@@ -1,12 +1,13 @@
 import styled from '@emotion/styled';
 
-export const LoadMoreBtn = styled.button`
+const LoadMoreBtn = styled.button`
     padding: 8px 16px;
     border-radius: 2px;
     background-color: #3f51b5;
     transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
     text-align: center;
-    display: inline-block;
+    display: block;
+    margin: auto;
     color: #fff;
     border: 0;
     text-decoration: none;
@@ -25,3 +26,5 @@ export const LoadMoreBtn = styled.button`
             background-color: #303f9f;
         }
 `;
+
+export default LoadMoreBtn;

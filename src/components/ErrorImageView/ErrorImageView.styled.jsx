@@ -13,13 +13,10 @@ export const ErrorBox = styled.div`
 
 export const Message = styled.p`
   max-width: 80%;
-  color: #eeea9e;
-  text-shadow: '0 1px 1px #fff';
-
+  color: #3f51b5;
+  text-shadow: 0 1px 1px #fff;
   text-align: center;
-  
-//   font-family: ;
-  font-size: 64px;
+  font-size: 48px;
 `;
 
 export const ErrorImage = styled.img`
