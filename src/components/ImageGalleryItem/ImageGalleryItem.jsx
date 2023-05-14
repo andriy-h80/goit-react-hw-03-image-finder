@@ -23,6 +23,7 @@ const ImageGalleryItem = ({ webformatURL, tags, largeImageURL, onImageClick }) =
   ImageGalleryItem.propTypes = {
     webformatURL: PropTypes.string.isRequired,
     tags: PropTypes.string.isRequired,
+    largeImageURL: PropTypes.string.isRequired,
     onImageClick: PropTypes.func.isRequired,
   };
   

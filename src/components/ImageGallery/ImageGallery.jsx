@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import ErrorImageView from '../ErrorImageView/ErrorImageView';
+import getImages from '../../services/fetchAPI';
 import Loader from '../Loader/Loader';
 import { ImageGalleryStyled, Text } from './ImageGallery.styled';
 import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
 import Button from '../Button/Button';
 import Modal from '../Modal/Modal';
 import PropTypes from 'prop-types';
-
-const BASE_URL = 'https://pixabay.com/api/';
-const API_KEY = '34772509-2b3ff3d3039847d74197d09be';
 
 export default class ImageGallery extends Component {
     state = {
@@ -21,34 +19,39 @@ export default class ImageGallery extends Component {
         showModal: false,
         modalData: { img: '', tags: '' },
     }
-    
+
     componentDidUpdate(prevProps, prevState) {
         const { page } = this.state;
         const { imageSearchName } = this.props;
 
-        if (prevProps.imageSearchName !== imageSearchName || prevState.page !== page) {
-            this.setState({ status: 'pending' });
-
-            fetch(`${BASE_URL}?q=${imageSearchName}&page=${page}&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=12`)
-            .then(response => {
-                if (response.ok) {
-                    return response.json()
-                }
-                return Promise.reject(
-                    new Error(`Sorry, we can't find ${this.props.imageSearchName}`)
-                )
-            })
+        if (prevProps.imageSearchName !== imageSearchName) {
+            getImages(imageSearchName, page)
             .then(images => {
-                this.setState(prevState => ({
-                    images: prevState.page === 1 ? images.hits : [...prevState.images, ...images.hits],
-                        totalPages: Math.floor(images.totalHits / 12),
-                        status: 'resolved',
-                }))
+                this.setState({
+                    images: images.hits,
+                    page,
+                    totalPages: Math.floor(images.totalHits / 12),
+                    status: 'resolved',
+                })
             })    
             .catch(error => {
                 this.setState({ error, status: 'rejected' });
             })
         }
+
+        if (prevState.page !== page && prevState.page >= 1) {
+            getImages(imageSearchName, page)
+            .then(images => {
+                this.setState(prevState => ({
+                    images: [...prevState.images, ...images.hits],
+                    totalPages: Math.floor(images.totalHits / 12),
+                    status: 'resolved',
+                }))
+            })    
+            .catch(error => {
+                this.setState({ error, status: 'rejected' });
+            }) 
+        }    
     }
 
     handleLoadMore = () => {
@@ -110,5 +113,4 @@ export default class ImageGallery extends Component {
 
 ImageGallery.propTypes = {
     imageSearchName: PropTypes.string.isRequired,
-    // onImageClick: PropTypes.func.isRequired,
 }

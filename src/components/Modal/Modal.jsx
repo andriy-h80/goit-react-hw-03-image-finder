@@ -46,5 +46,5 @@ Modal.propTypes = {
     largeImageURL: PropTypes.string.isRequired,
     tags: PropTypes.string.isRequired,
   }),
-  onModalClose: PropTypes.func,
+  onClose: PropTypes.func,
 };
