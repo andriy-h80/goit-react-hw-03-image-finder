@@ -25,33 +25,44 @@ export default class ImageGallery extends Component {
         const { imageSearchName } = this.props;
 
         if (prevProps.imageSearchName !== imageSearchName) {
+            this.setState({
+                images: [],
+                page: 1,
+            })
+        }
+
+        if (prevProps.imageSearchName !== imageSearchName || prevState.page !== page) {
             getImages(imageSearchName, page)
             .then(images => {
                 this.setState({
-                    images: images.hits,
-                    page,
+                    images: 
+                        page === 1 ? images.hits : [...prevState.images, ...images.hits],
                     totalPages: Math.floor(images.totalHits / 12),
                     status: 'resolved',
+                    // page: page,
                 })
+                console.log(page);
             })    
             .catch(error => {
                 this.setState({ error, status: 'rejected' });
             })
+            console.log(page);
         }
 
-        if (prevState.page !== page && prevState.page >= 1) {
-            getImages(imageSearchName, page)
-            .then(images => {
-                this.setState(prevState => ({
-                    images: [...prevState.images, ...images.hits],
-                    totalPages: Math.floor(images.totalHits / 12),
-                    status: 'resolved',
-                }))
-            })    
-            .catch(error => {
-                this.setState({ error, status: 'rejected' });
-            }) 
-        }    
+        // if (prevState.page !== page && prevState.page >= 1) {
+        //     getImages(imageSearchName, page)
+        //     .then(images => {
+        //         this.setState(prevState => ({
+        //             images: [...prevState.images, ...images.hits],
+        //             totalPages: Math.floor(images.totalHits / 12),
+        //             status: 'resolved',
+        //         }))
+        //     })    
+        //     .catch(error => {
+        //         this.setState({ error, status: 'rejected' });
+        //     }) 
+        //      console.log(page);
+        // }    
     }
 
     handleLoadMore = () => {
