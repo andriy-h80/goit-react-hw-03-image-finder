@@ -41,28 +41,11 @@ export default class ImageGallery extends Component {
                     status: 'resolved',
                     // page: page,
                 })
-                console.log(page);
             })    
             .catch(error => {
                 this.setState({ error, status: 'rejected' });
             })
-            console.log(page);
-        }
-
-        // if (prevState.page !== page && prevState.page >= 1) {
-        //     getImages(imageSearchName, page)
-        //     .then(images => {
-        //         this.setState(prevState => ({
-        //             images: [...prevState.images, ...images.hits],
-        //             totalPages: Math.floor(images.totalHits / 12),
-        //             status: 'resolved',
-        //         }))
-        //     })    
-        //     .catch(error => {
-        //         this.setState({ error, status: 'rejected' });
-        //     }) 
-        //      console.log(page);
-        // }    
+        }  
     }
 
     handleLoadMore = () => {
