@@ -28,6 +28,7 @@ export default class ImageGallery extends Component {
             this.setState({
                 images: [],
                 page: 1,
+                status: 'pending',
             })
         }
 
@@ -39,7 +40,6 @@ export default class ImageGallery extends Component {
                         page === 1 ? images.hits : [...prevState.images, ...images.hits],
                     totalPages: Math.floor(images.totalHits / 12),
                     status: 'resolved',
-                    // page: page,
                 })
             })    
             .catch(error => {
